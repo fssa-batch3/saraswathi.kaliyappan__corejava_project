@@ -48,7 +48,6 @@ public class User {
     			System.out.println(user1.getName() + "-" + user1.getPassword() + "-"
     					+ user1.getEmailId());
     			
-    			// Create Account with Overloaded constructor accepting parameters
     			User user2 = new User("saras", "saras123", "saras@gmail.com");
     			System.out.println(user2.getName() + "-" + user2.getPassword() + "-"
     					+ user2.getEmailId());
