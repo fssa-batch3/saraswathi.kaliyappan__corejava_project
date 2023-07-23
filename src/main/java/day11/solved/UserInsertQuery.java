@@ -5,7 +5,6 @@ package day11.solved;
  */
 
 import day11.solved.*;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
