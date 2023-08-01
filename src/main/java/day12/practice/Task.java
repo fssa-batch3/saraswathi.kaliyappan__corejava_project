@@ -67,7 +67,7 @@ class TaskValidator {
 	
 }
 
-public class TestTaskDAO1 {
+ class TestTaskDAO1 {
 	public static Connection getConnection() {
 
 		Connection con = null;

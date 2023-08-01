@@ -3,10 +3,8 @@ package day12.solved;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 import day11.solved.ConnectionUtil;
-import day12.solved.*;
 
 /**
  * @author BharathwajSoundarara

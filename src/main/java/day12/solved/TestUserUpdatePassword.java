@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import day11.solved.ConnectionUtil;
-import day12.solved.*;
 
 /**
  * @author BharathwajSoundarara
