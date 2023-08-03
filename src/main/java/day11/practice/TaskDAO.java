@@ -1,95 +1,53 @@
 package day11.practice;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
-import day11.solved.ConnectionUtil;
 
-class Task {
-	int id;
-	String name;
-	String status;
+public class TaskDAO {
 	
-	Task(String name, String status){
 
-		this.name = name;
-		this.status = status; 
-	}
-	
-}
-
-class DAOException extends Exception {
-
-
-	private static final long serialVersionUID = 2L;
-
-	public DAOException(String msg) {
-		super(msg);
-	}
-
-	public DAOException(Throwable te) {
-		super(te);
-	}
-
-	public DAOException(String msg, Throwable te) {
-		super(msg, te);
-	}
-}
-
-class TaskDAO {
-	
-	public static boolean createTask(Task task) throws DAOException {
-
-		
+	public static boolean createTask(Task task) throws DAOException {// User defined Exception
+		// Write code here to get connection
 		if(task == null) {
-			throw new DAOException("Task Obj Can't be Null");
+			throw new DAOException("cannot run prepared statement");
 		}
+		String url = "jdbc:mysql://localhost:3306/task"; // url for to connect local database
+
+		String user = "root"; // user of local database
+
+		String password = "password"; // password of local database
 		
-		String url = "jdbc:mysql://localhost:3306/task";
-		String userName = "root";
-		String passWord = "123456";
-		
-		Connection con = null;
-		
+		Connection connection;
 		try {
-			con = DriverManager.getConnection(url, userName, passWord);
-		}catch(SQLException  e) {
-			throw new DAOException("Can't Create Connection");
+			connection = DriverManager.getConnection(url, user, password);
+		} catch (SQLException e) {
+			throw new DAOException("cannot create connection");
 		}
-		
-		String query = "INSERT INTO Task(name, status) values (?,?)";
-		
-		
+		// Create insert statement
+		String query = "insert into task(name, status) values (?,?)";
+
+		// Execute insert statement
 		try {
-			PreparedStatement pst = con.prepareStatement(query);
+			PreparedStatement pst = connection.prepareStatement(query);
 			pst.setString(1, task.name);
 			pst.setString(2, task.status);
 			pst.executeUpdate();
-		}catch(SQLException e) {
-			throw new DAOException("Can't Run Prepared Statement");
+		} catch (SQLException e) {
+			
+			throw new DAOException("cannot run prepared statement");
 		}
-		
-		ConnectionUtil.close(con, null, null);
-		
-		System.out.println("Task Completed");
-		
-		return true;
-		
-		
-	} 
-	
-	public static void main(String[] args) throws DAOException {
-
-		Task t1 = new Task("Learn JDBC", "Completed");
-		
+		// close connection
 		try {
-			createTask(t1);
-		}catch(DAOException e) {
-			throw new DAOException(e.getMessage());
+			connection.close();
+		} catch (SQLException e) {
+			throw new DAOException("cannot close connection");
+
 		}
-		
+		System.out.println("Task completed");
+		return true;
 	}
 
 }
+
+
+// Create Junit Test case and test the TaskDao.createTask method
